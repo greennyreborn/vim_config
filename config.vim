@@ -34,7 +34,9 @@ set nowrap         " Line wrapping off
 set laststatus=2   " Always show the statusline
 set cmdheight=1    " Make the command area two lines high
 set cursorline     " Highlight current line
-set encoding=utf-8
+if !has('nvim')
+    set encoding=utf-8
+endif
 set noshowmode     " Don't show the mode since Powerline shows it
 set title          " Set the title of the window in the terminal to the file
 if exists('+colorcolumn')
@@ -138,5 +140,10 @@ set mouse=a    " Mouse in all modes
 set complete=.,w,b,u,U
 
 " Python provider
-let g:python_host_prog = '/usr/local/bin/python2'
-let g:python3_host_prog = '/usr/local/bin/python3'
+if has('mac') || has('macunix')
+    let g:python_host_prog = '/usr/local/bin/python2'
+    let g:python3_host_prog = '/usr/local/bin/python3'
+elseif has('unix')
+    let g:python_host_prog = '/usr/bin/python2'
+    let g:python3_host_prog = '/usr/bin/python3'
+endif
